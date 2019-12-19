@@ -1,0 +1,2 @@
+
+    strcpy(asd, "dva");

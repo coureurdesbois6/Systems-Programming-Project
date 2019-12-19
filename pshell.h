@@ -70,7 +70,7 @@ char** split_line(char* line) {
 int execute(char** args) {
     for(int i = 0; i < sizeof(CMDS)/sizeof(char*); i++) {
         if(strcmp(CMDS[i], args[0]) == 0) {
-            (*commands[i])();
+            (*commands[i])(args);
             printf("\n");
         }
     }
