@@ -29,11 +29,13 @@ display_server_status()
 
 read_servers() {
 	i=0;
+	touch servers.txt
 	for j in `cat servers.txt` 
 	do
    		servers[$i]=$j; 
     	i=$(($i+1)); 
   	done 
+  	echo "`grep . servers.txt`" > servers.txt
 }
 
 
