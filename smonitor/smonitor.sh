@@ -10,6 +10,8 @@ start_monitoring()
   			display_server_status $i
 		else
   			#echo down
+  			echo "                                                 "
+			echo -ne "\r\033[A\033[0K$@"
   			echo "$i is DOWN" #since `date  
 		fi
 	done
