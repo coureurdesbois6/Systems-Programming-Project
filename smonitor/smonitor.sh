@@ -1,5 +1,6 @@
 start_monitoring()
 {
+	#stty -echo #disable stdin
 	while true; do
     for i in "${servers[@]}"
 	do
@@ -9,13 +10,16 @@ start_monitoring()
   			display_server_status $i
 		else
   			#echo down
-  			echo "$i is DOWN"
+  			echo "$i is DOWN" #since `date  
 		fi
 	done
+	stty echo
 	sleep 2
 	#echo -ne " \r"
 	#echo -en "\033[0"
+	#echo -ne "\r\033[A\033[0K$@"
 	echo -ne "\r\033[${#servers[@]}A\033[0K$@"
+	#printf '\33c\e[3J'
 	done
 	
 }
@@ -24,7 +28,10 @@ display_server_status()
 {
 	#out=`ping -W 1000 -c 2 192.168.1.43 | grep -oE '([0-9]{1,3}\.?){4,}' | head -1`
 	out=`ping -c 1 $1 | grep -oE 'time=[0-9]*\.[0-9]*' | head -1`
-	echo "$1 is up, ping: $out"
+	echo "                                                 "
+	echo -ne "\r\033[A\033[0K$@"
+	#echo -ne "\r\033[A\033[0K$@"
+	echo " is up, $out ms"
 }
 
 read_servers() {
@@ -38,6 +45,12 @@ read_servers() {
   	echo "`grep . servers.txt`" > servers.txt
 }
 
+remove_all() {
+	unset servers
+	touch servers.txt
+	echo -n > servers.txt
+}
+
 
 declare -a servers
 read_servers
@@ -45,7 +58,7 @@ read_servers
 
 if [ $# -eq 0 ]
   then
-    echo "usage: smonitor [-start] [-add server_ip] [-remove server_ip]"
+    echo "usage: smonitor [-start] [-add server_ip] [-remove server_ip] [-removeall]"
     exit 1;
 fi
 
@@ -80,8 +93,14 @@ then
 		echo "usage: smonitor [-remove server_ip]"
 		exit 1;
 	else
-		sed -i -e "s/$2//g" servers.txt
+		sed -iE "/$2/d" servers.txt
+		#sed -i '/$2/d' servers.txt
+		#sed -i "/\b$2\b/d" servers.txt
+		#sed -i -e "s/$2//g" servers.txt
 	fi
+elif [[ $1 == -removeall ]]
+then
+	remove_all
 fi
 
 
