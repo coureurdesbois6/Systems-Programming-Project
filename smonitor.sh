@@ -10,18 +10,28 @@ start_monitoring()
   			display_server_status $i
 		else
   			#echo down
-  			echo "                                                 "
-			echo -ne "\r\033[A\033[0K$@"
-  			echo "$i is DOWN" #since `date  
+  			printf "                                                    "
+			#echo -n -e "\r\033[A\033[0K"
+  			##echo "$i is DOWN" #since `date
+  			printf "\r$i is DOWN"
+  			#if [[ -z dates[$key] ]]
+  			#then
+  			#	dates[$key]=`date`
+  			#fi
+  			#echo " since ${dates[$key]}"
 		fi
+		echo ""
 	done
-	stty echo
-	sleep 2
+	#stty echo
+	sleep 1
 	#echo -ne " \r"
 	#echo -en "\033[0"
 	#echo -ne "\r\033[A\033[0K$@"
-	echo -ne "\r\033[${#servers[@]}A\033[0K$@"
+	#echo -ne "\r\033[${#servers[@]}A\033[0K$@"
+	#echo -n -e "\r\033[${#servers[@]}A\033[0K"
+	#echo -n -e "\r\033[${#servers[@]}A\033[0K\c"
 	#printf '\33c\e[3J'
+	printf "\033[${#servers[@]}A"
 	done
 	
 }
@@ -29,11 +39,11 @@ start_monitoring()
 display_server_status()
 {
 	#out=`ping -W 1000 -c 2 192.168.1.43 | grep -oE '([0-9]{1,3}\.?){4,}' | head -1`
-	out=`ping -c 1 $1 | grep -oE 'time=[0-9]*\.[0-9]*' | head -1`
-	echo "                                                 "
-	echo -ne "\r\033[A\033[0K$@"
+	out=`ping -W 500 -c 1 $1 | grep -oE 'time=[0-9]*\.[0-9]*' | head -1`
+	##echo "                                                 "
+	##echo -n -e "\r\033[A\033[0K"
 	#echo -ne "\r\033[A\033[0K$@"
-	echo " is up, $out ms"
+	printf "\r$i is up, $out ms"
 }
 
 read_servers() {
@@ -54,6 +64,9 @@ remove_all() {
 }
 
 
+#declare -a dates
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd $DIR
 declare -a servers
 read_servers
 

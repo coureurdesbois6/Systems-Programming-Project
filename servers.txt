@@ -2,3 +2,4 @@ google.com
 172.16.33.131
 172.16.33.132
 172.16.33.133
+steamcommunity.com
