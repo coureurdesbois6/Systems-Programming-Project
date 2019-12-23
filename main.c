@@ -1,9 +1,13 @@
 #include "pshell.h"
 
+char* WELCOME_MESSAGE = "Current working directory is: /Users/CURRENT_USER\n"
+"Custom shell made by Yigit SEZER and Efe ERTEKIN\n"
+"Available commands: cd, pwd, vcs, smonitor, endecrypter, findchange\n";
+
 int main(int argc, char **argv) {
     set_exe_path(argv[0]);
     system("clear");
-    printf("Current working directory is: /Users/CURRENT_USER\nCustom shell made by Yigit SEZER and Efe ERTEKIN\nAvailable commands: cd, vcs, smonitor, endecrypter\n");
+    printf("%s", WELCOME_MESSAGE);
     main_loop();
     return 0;
 }
