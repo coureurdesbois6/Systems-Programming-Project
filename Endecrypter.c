@@ -8,7 +8,7 @@ int endecrypter(char **args){
     while (args[i] != NULL) {
         i++;
     }
-
+//Check number of arguments
     if (i != 3)
     {
         printf("YOU HAVE TO GIVE 2 ARGUMENTS! FIRST ONE FILE NAME, SECOND ONE OPERATION!\n");
@@ -24,6 +24,7 @@ int endecrypter(char **args){
     else
     {
     
+//Getting file's byte
     int Num_bytes;
     for(Num_bytes = 0; fgetc(num) != EOF; ++Num_bytes);
     fclose(num);
@@ -40,6 +41,8 @@ int endecrypter(char **args){
         printf("File couldn't found\n");
     }
     else{
+	    
+//Encryption process
     while(1){
         ch = fgetc(file_main);
         if(ch==EOF){
@@ -60,6 +63,8 @@ int endecrypter(char **args){
 
     file_main = fopen(args[1], "w");
     temp = fopen("clone.txt", "r");
+	    
+//Transferring encrypted chars to temp file
     while (1){
         ch = fgetc(temp);
         if(ch==EOF)
@@ -93,6 +98,7 @@ int endecrypter(char **args){
     }
     else{
 	
+//Decrypt process
 	while(1)
 	{
 		ch = fgetc(temp);
@@ -112,6 +118,8 @@ int endecrypter(char **args){
 	fclose(temp);
     printf(".....File is decrypted.....\n");
     }
+	
+//Checks second argument is right or wrong
     if(strcmp(args[2], "de") != 0 && strcmp(args[2], "en") != 0){
         printf("You have to give 'en' for encrypt, 'de' for decrypt as a second argument!\n");
     }
