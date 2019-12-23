@@ -5,6 +5,9 @@ void (*commands[NUM_OF_CMDS])(char**) = {cd, pwd, vcs, smonitor, endecrypter, fi
 char* EXE_PATH;
 char CURRENT_PATH[100];
 
+
+//Set the executable path
+//Called in main on startup
 void set_exe_path(char* path){
     EXE_PATH = malloc(sizeof(path));
     EXE_PATH = path;
@@ -15,11 +18,19 @@ void set_exe_path(char* path){
     }
 }
 
+/*
+    CURRENT_PATH together with EXE_PATH resolves some complications
+    made during the system() calls by ensuring the shell scripts and
+    C functions work in desired paths.
+*/
+
+//Prints current working directory
 void pwd(char** args) {
     getcwd(CURRENT_PATH, sizeof(CURRENT_PATH));
     printf("%s\n", CURRENT_PATH);
 }
 
+//Change current working directory
 void cd(char** args){
     struct stat st;
     if(stat(args[1],&st) != 0) {
@@ -36,9 +47,13 @@ void cd(char** args){
     }
 }
 
-// INSERTING / BEFORE DIRECTORY CREATES ERROR
+// DEVELOPER NOTE:
+// INSERTING / BEFORE DIRECTORY NAME CREATES SEGMENTATION
 // PASS DIRECTORY ARGUMENTS USING EXE_PATH
 // OR IMPLEMENT CHANGE DIRECTORY
+
+
+//vcs function parses and calls selected functions
 void vcs(char** args){
     int i = 0;
     while (args[i] != NULL) {
@@ -71,30 +86,10 @@ void vcs(char** args){
     }
 }
 
+//calls smonitor shell script
 void smonitor(char** args){
     char text[100];
-    int i = 0;
-    while (args[i] != NULL) {
-        i++;
-    }
-    i--; //i now indicates number of arguments passed to smonitor
-    //strcpy(text, "cd ");
-    //strcat(text, EXE_PATH);
-    //strcat(text, "; ");
-    /*
-    chdir(EXE_PATH);
-    char *execargs[i+2];
-    execargs[0] = "./smonitor.sh";
-    for(int j = 1; j < i+2; j++)
-        execargs[j] = args[j];
-    for(int j = 0; j < i+2; j++)
-        printf("%s", execargs[j]);
-    fork();
-    execvp(execargs[0], execargs);
-    */
-    //FORGET EXEC
-    i = 1;
-    //strcat(text, "./");
+    int i = 1;
     strcpy(text, EXE_PATH);
     strcat(text, "/");
     strcat(text, args[0]);
@@ -104,22 +99,20 @@ void smonitor(char** args){
         strcat(text, " ");
         i++;
     }
-    //printf("INSERTED: %s\n", text);
+    //printf("INSERTED: %s\n", text); //Indicates what is passed to system()
     system(text);
 }
 
+//calls endecrypter main function
+//args are parsed in the endecrypter main function endecrypterfunc
 void endecrypter(char** args){
     endecrypterfunc(args);
 }
 
+//calls findchange shell script
 void findchange(char** args){
     char text[150];
-    int i = 0;
-    while (args[i] != NULL) {
-        i++;
-    }
-    i--; //i now indicates number of arguments passed to smonitor
-    i = 1;
+    int i = 1;
     strcpy(text, EXE_PATH);
     strcat(text, "/");
     strcat(text, args[0]);
@@ -133,6 +126,6 @@ void findchange(char** args){
         strcat(text, " ");
         i++;
     }
-    //printf("INSERTED: %s\n", text);
+    //printf("INSERTED: %s\n", text); //Indicates what is passed to system()
     system(text);
 }

@@ -1,5 +1,6 @@
 #include "pshell.h"
 
+//Main loop always reading input before the return key
 void main_loop() {
     char *line;
     char **args;
@@ -7,14 +8,16 @@ void main_loop() {
 
     while (!status) {
         printf("> ");
-        line = read_line(); //Add line to history after this line
+        line = read_line(); //TODO: Add line to `history` after this line
         args = split_line(line);
         status = execute(args);
-        free(line);
+        free(line); //free both line and args after executed proccess is finished
         free(args);
     }
 }
 
+//read every keystroke to a string
+//allows flexible sized input string
 char* read_line(){
     int size = EXTENSION_SIZE;
     int position = 0;
@@ -39,6 +42,8 @@ char* read_line(){
     }
 }
 
+//parse given input to arguments
+//(or just split it)
 char** split_line(char* line) {
     const char s[] = " ";
     char** args = malloc(sizeof(char*)*64);
@@ -57,6 +62,8 @@ char** split_line(char* line) {
     return args;
 }
 
+//call the function corresponding to
+//given function name, passing the arguments
 int execute(char** args) {
     for(int i = 0; i < NUM_OF_CMDS; i++) {
         if(strcmp(CMDS[i], args[0]) == 0) {

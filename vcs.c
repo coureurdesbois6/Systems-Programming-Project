@@ -2,6 +2,7 @@
 
 const char VCS_ERR_MSG[] = "usage: vcs [-create] dir\nvcs [-fetch] [-check] proj-dir source-dir\nvcs [-push] proj-dir source ver-name\n";
 
+//UNUSED FUNCTION CHECKING EQUALITY BETWEEN TWO FILES
 int file_edited(char* file_name1, char* file_name2) {
     int c = 0;
     int c2 = 0;
@@ -44,7 +45,6 @@ int get_latest_version(char* repo, char* dir) {
 
     while ((de = readdir(dr)) != NULL) {
         if(!strstr(de->d_name, ".")) {
-            //    fp = fopen("./Project2/ver2/.ver", "r");
             strcpy(text, "./");
             strcat(text, repo);
             strcat(text, "/");
@@ -63,11 +63,10 @@ int get_latest_version(char* repo, char* dir) {
     }
 
     closedir(dr);     
-
-    //return atoi(buffer);
     return latest_ver;
 }
 
+//create version directory in repository with name name
 void create_version(char* repo, char* name) {
     char text[100];
     FILE *fp;
@@ -94,18 +93,17 @@ void create_version(char* repo, char* name) {
     }
 }
 
+//Get latest version in repo, copy it to dir directory
 void fetch(char* repo, char* dir) {
     char text[100];
     char latestver[100];
     FILE *fp;
-    //struct stat st;
     strcpy(text, repo);
     strcat(text, "/.repo");
     fp = fopen(text, "r");
     if (fp == NULL) {
         printf("Directory is not a repository");
     } else {
-        /* FIND LATEST VERSION, MOVE IT TO DIR */
         get_latest_version(repo, latestver);
         strcpy(text, "cp -R ");
         strcat(text, "./");
@@ -118,6 +116,7 @@ void fetch(char* repo, char* dir) {
     }
 }
 
+//Push dir to repo repository with version name vername
 void push(char* repo, char* dir, char* vername) {
     char text[100];
     FILE *fp;
@@ -150,15 +149,10 @@ void push(char* repo, char* dir, char* vername) {
     }
 }
 
-//UNFINISHED, USE DIFF
-//FILE1 REFERS TO VER IN REPO, FILE2 REFERS TO REPO
-//ONLY CALLS DIFF
+//Show difference between two directories/repositories
 void check(char* file1, char* file2) {
     FILE *p;
-    //char ch;
     char text[100];
-    //int x;
-
     strcpy(text, "diff ");
     strcat(text, file1);
     strcat(text, " ");
@@ -167,27 +161,9 @@ void check(char* file1, char* file2) {
     //strcat(text, " | grep -c '[<>]'");
     //p = popen(text,"r");
     system(text);
-    /*
-    if( p == NULL)
-    {
-        puts("Unable to open process");
-    }
-    while( (ch=fgetc(p)) != EOF) {
-        if(isdigit(ch) != 0)
-            x+=(char)ch;
-    }
-    printf("%d", x);
-    pclose(p);
-    if (x == 49) {
-        return 1;
-        printf("Project is up to date.");
-    } else {
-        return 0;
-        printf("Project is not up to date.");
-    }
-    */
 }
 
+//Create repository with given name/directory
 void create_repo(char* name) {
     char text[100];
     FILE *fp;
