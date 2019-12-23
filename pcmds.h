@@ -1,13 +1,16 @@
 #include "vcs.h"
-#define NUM_OF_CMDS 4
+#include "endecryptermain.h"
+#define NUM_OF_CMDS 5
 
 void set_exe_path(char* path);
+void cd(char** args);
 
 void vcs(char** args);
 void smonitor(char** args);
-void cmd3(char** args);
-void cmd4(char** args);
+void endecrypter(char** args);
+void findchange(char** args);
 
 extern char* CMDS[];
-extern void (*commands[4])(char**);
+extern void (*commands[NUM_OF_CMDS])(char**);
 extern char* EXE_PATH;
+extern char CURRENT_PATH[100];

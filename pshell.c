@@ -61,7 +61,6 @@ int execute(char** args) {
     for(int i = 0; i < NUM_OF_CMDS; i++) {
         if(strcmp(CMDS[i], args[0]) == 0) {
             (*commands[i])(args);
-            printf("\n");
             return 1;
         }
     }

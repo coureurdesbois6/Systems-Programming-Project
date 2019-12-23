@@ -1,10 +1,12 @@
 #include "pcmds.h"
 #include "vcs.h"
+#include "endecryptermain.h"
 #include <unistd.h>
 
-char* CMDS[] = {"vcs", "smonitor", "cmd3", "cmd4"};
-void (*commands[4])(char**) = {vcs, smonitor, cmd3, cmd4};
+char* CMDS[] = {"cd", "vcs", "smonitor", "endecrypter", "findchange"};
+void (*commands[NUM_OF_CMDS])(char**) = {cd, vcs, smonitor, endecrypter, findchange};
 char* EXE_PATH;
+char CURRENT_PATH[100];
 
 void set_exe_path(char* path){
     EXE_PATH = malloc(sizeof(path));
@@ -16,6 +18,25 @@ void set_exe_path(char* path){
     }
 }
 
+void cd(char** args){
+    struct stat st;
+    if(stat(args[1],&st) != 0) {
+        printf("Directory doesn't exist");
+    } else {
+        char cwd[100];
+        getcwd(cwd, sizeof(cwd));
+        strcat(cwd, "/");
+        strcat(cwd, args[1]);
+        chdir(cwd);
+        getcwd(cwd, sizeof(cwd));
+        printf("current working directory: %s\n", cwd);
+        strcpy(CURRENT_PATH, cwd);
+    }
+}
+
+// INSERTING / BEFORE DIRECTORY CREATES ERROR
+// PASS DIRECTORY ARGUMENTS USING EXE_PATH
+// OR IMPLEMENT CHANGE DIRECTORY
 void vcs(char** args){
     int i = 0;
     while (args[i] != NULL) {
@@ -55,9 +76,9 @@ void smonitor(char** args){
         i++;
     }
     i--; //i now indicates number of arguments passed to smonitor
-    strcpy(text, "cd ");
-    strcat(text, EXE_PATH);
-    strcat(text, "; ");
+    //strcpy(text, "cd ");
+    //strcat(text, EXE_PATH);
+    //strcat(text, "; ");
     /*
     chdir(EXE_PATH);
     char *execargs[i+2];
@@ -71,7 +92,9 @@ void smonitor(char** args){
     */
     //FORGET EXEC
     i = 1;
-    strcat(text, "./");
+    //strcat(text, "./");
+    strcpy(text, EXE_PATH);
+    strcat(text, "/");
     strcat(text, args[0]);
     strcat(text, ".sh ");
     while (args[i] != NULL) {
@@ -83,11 +106,31 @@ void smonitor(char** args){
     system(text);
 }
 
-void cmd3(char** args){
-    printf("cmd3 is called");
+void endecrypter(char** args){
+    endecrypterfunc(args);
 }
 
-void cmd4(char** args){
-    printf("cmd4 is called");
+void findchange(char** args){
+    char text[150];
+    int i = 0;
+    while (args[i] != NULL) {
+        i++;
+    }
+    i--; //i now indicates number of arguments passed to smonitor
+    i = 1;
+    strcpy(text, EXE_PATH);
+    strcat(text, "/");
+    strcat(text, args[0]);
+    strcat(text, ".sh ");
+    while (args[i] != NULL) {
+        if(i == 3) {
+            strcat(text, CURRENT_PATH);
+            strcat(text, "/");
+        }
+        strcat(text, args[i]);
+        strcat(text, " ");
+        i++;
+    }
+    printf("INSERTED: %s\n", text);
+    //system(text);
 }
-

@@ -2,7 +2,8 @@
 
 int main(int argc, char **argv) {
     set_exe_path(argv[0]);
-    printf("Current working directory is: /Users/CURRENT_USER\n");
+    system("clear");
+    printf("Current working directory is: /Users/CURRENT_USER\nCustom shell made by Yigit SEZER and Efe ERTEKIN\nAvailable commands: cd, vcs, smonitor, endecrypter\n");
     main_loop();
     return 0;
 }

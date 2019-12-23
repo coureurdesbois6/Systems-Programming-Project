@@ -1,6 +1,6 @@
 #include "vcs.h"
 
-const char VCS_ERR_MSG[] = "usage: vcs [-create] dir\nvcs [-fetch] [-check] proj-dir source-dir\nvcs [-push] proj-dir source ver-name";
+const char VCS_ERR_MSG[] = "usage: vcs [-create] dir\nvcs [-fetch] [-check] proj-dir source-dir\nvcs [-push] proj-dir source ver-name\n";
 
 int file_edited(char* file_name1, char* file_name2) {
     int c = 0;
@@ -40,7 +40,7 @@ int get_latest_version(char* repo, char* dir) {
   
     FILE *fp;
     char buffer[100];
-    int latest_ver = 100;
+    int latest_ver = 99;
 
     while ((de = readdir(dr)) != NULL) {
         if(!strstr(de->d_name, ".")) {
@@ -56,7 +56,7 @@ int get_latest_version(char* repo, char* dir) {
             if (atoi(buffer) > latest_ver) {
                 latest_ver = atoi(buffer);
                 if (dir != NULL)
-                    strcat(dir, de->d_name);
+                    strcpy(dir, de->d_name);
             }
             fclose(fp);
         }
@@ -150,19 +150,24 @@ void push(char* repo, char* dir, char* vername) {
     }
 }
 
-int check(char* file1, char* file2) {
+//UNFINISHED, USE DIFF
+//FILE1 REFERS TO VER IN REPO, FILE2 REFERS TO REPO
+//ONLY CALLS DIFF
+void check(char* file1, char* file2) {
     FILE *p;
-    char ch;
+    //char ch;
     char text[100];
-    int x;
+    //int x;
 
     strcpy(text, "diff ");
     strcat(text, file1);
     strcat(text, " ");
     strcat(text, file2);
-    strcat(text, " | wc -l");
-    p = popen(text,"r");   /* DOS */
-    //fprintf(fp, "plot sin(x)\n");
+    //strcat(text, " | wc -l");
+    //strcat(text, " | grep -c '[<>]'");
+    //p = popen(text,"r");
+    system(text);
+    /*
     if( p == NULL)
     {
         puts("Unable to open process");
@@ -171,6 +176,7 @@ int check(char* file1, char* file2) {
         if(isdigit(ch) != 0)
             x+=(char)ch;
     }
+    printf("%d", x);
     pclose(p);
     if (x == 49) {
         return 1;
@@ -179,6 +185,7 @@ int check(char* file1, char* file2) {
         return 0;
         printf("Project is not up to date.");
     }
+    */
 }
 
 void create_repo(char* name) {

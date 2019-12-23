@@ -7,15 +7,15 @@ echo ""
 
 
 #Checks if there are enough arguments.
-if [ $# -ne 2 ]; then
- echo "You should give 2 arguments. First one should be '-C' or '-D'. '-C' is looking your current dir, '-D' is looking your current dir and your current dir's directories recursively. Second argument should be the word that you want to find."
+if [ $# -ne 3 ]; then
+ echo "You should give 3 arguments. First one should be '-C' or '-D'. '-C' is looking your current dir, '-D' is looking your current dir and your current dir's directories recursively. Second argument should be the word that you want to find."
  else
 
 
 # -C CHECKS ONE DIRECTORY.
   if [ $1 = "-C" ]; then
- echo "Give a directory to perform your search:"
- read -r dir1
+ dir1=$3
+ DIR=`pwd`
  cd $dir1 | grep --color=always -wHn "$2" *\.* #GETS DIR FROM USER AND TRYING TO FIND THE WORD
  declare -i x=`cd $dir1 | grep --color=always -wHn "$2" *\.* | wc -l`
   if [ $x -eq 0 ]; then
@@ -31,15 +31,15 @@ if [ $# -ne 2 ]; then
   read -r path
   echo "Line number of word to change:"
   read -r linenum
-  sed -i "$linenum s/$2/$a/g" $path
+  sed -i.bak -e "$linenum s/$2/$a/g" $path
  fi
   fi
 
 
 # -D CHECKS DIRECTORIES RECURSIVELY
 elif [ $1 = "-D" ]; then
- echo "Give a directory to perform your search:"
- read -r dir2
+dir2=$3
+DIR=`pwd`
  cd $dir2 | grep --color=always -rwHn "$2" ${DIR} #GETS DIR FROM USER AND TRYING TO FIND THE WORD
  declare -i x=`cd $dir2 | grep --color=always -rwHn "$2" ${DIR} | wc -l`
   if [ $x -eq 0 ]; then
@@ -54,7 +54,7 @@ elif [ $1 = "-D" ]; then
   read -r path
   echo "Line number of word to change:"
   read -r linenum
-  sed -i "$linenum s/$2/$a/g" $path
+  sed -i.bak -e "$linenum s/$2/$a/g" $path
  fi
   fi
 

@@ -3,3 +3,4 @@ google.com
 172.16.33.132
 172.16.33.133
 steamcommunity.com
+0.0.0.0

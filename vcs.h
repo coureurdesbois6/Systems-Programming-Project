@@ -12,5 +12,5 @@ int get_latest_version(char* repo, char* dir);
 void create_version(char* repo, char* name);
 void fetch(char* repo, char* dir);
 void push(char* repo, char* dir, char* vername);
-int check(char* file1, char* file2);
+void check(char* file1, char* file2);
 void create_repo(char* name);
