@@ -3,8 +3,11 @@
 #include<string.h>
 #include<ctype.h>
 
-int main(int argc, char **argv){
-  
+int endecrypter(char **args){
+    int i = 0;
+    while (args[i] != NULL) {
+        i++;
+    }
 
     
     
@@ -20,14 +23,14 @@ int main(int argc, char **argv){
 
  
 
-    if (argc != 3)
+    if (i != 3)
     {
         printf("YOU HAVE TO GIVE 2 ARGUMENTS! FIRST ONE FILE NAME, SECOND ONE OPERATION!\n");
         exit (0);
     }
 
     FILE *num;
-    num = fopen(argv[1], "r");
+    num = fopen(args[1], "r");
     if(num == NULL){
         printf("File couldn't found\n");
         exit (0);
@@ -36,12 +39,12 @@ int main(int argc, char **argv){
     for(Num_bytes = 0; fgetc(num) != EOF; ++Num_bytes);
     fclose(num);
 
-    if(strcmp(argv[2],"en") == 0){
+    if(strcmp(args[2],"en") == 0){
     
     char ch;
     FILE *file_main, *temp;
 
-    file_main = fopen(argv[1], "r");
+    file_main = fopen(args[1], "r");
     temp = fopen("clone.txt", "w");
 
     if(file_main == NULL){
@@ -78,7 +81,7 @@ int main(int argc, char **argv){
     fclose(file_main);
     fclose(temp);
 
-    file_main = fopen(argv[1], "w");
+    file_main = fopen(args[1], "w");
     temp = fopen("clone.txt", "r");
     while (1){
         ch = fgetc(temp);
@@ -95,12 +98,12 @@ int main(int argc, char **argv){
     printf(".....File is encrypted.....\n");
     }
     
-    if (strcmp(argv[2], "de") == 0)
+    if (strcmp(args[2], "de") == 0)
     {
     char ch;
 	FILE *file_main, *temp;
 	
-	file_main = fopen(argv[1], "w");
+	file_main = fopen(args[1], "w");
 	temp = fopen("clone.txt", "r");
 
     if(file_main == NULL){
@@ -142,7 +145,7 @@ int main(int argc, char **argv){
 	fclose(temp);
     printf(".....File is decrypted.....\n");
     }
-    if(strcmp(argv[2], "de") != 0 && strcmp(argv[2], "en") != 0){
+    if(strcmp(args[2], "de") != 0 && strcmp(args[2], "en") != 0){
         printf("You have to give 'en' for encrypt, 'de' for decrypt as a second argument!\n");
 	exit (0);
     }
