@@ -3,8 +3,8 @@
 #include "endecryptermain.h"
 #include <unistd.h>
 
-char* CMDS[] = {"cd", "vcs", "smonitor", "endecrypter", "findchange"};
-void (*commands[NUM_OF_CMDS])(char**) = {cd, vcs, smonitor, endecrypter, findchange};
+char* CMDS[] = {"cd", "pwd", "vcs", "smonitor", "endecrypter", "findchange"};
+void (*commands[NUM_OF_CMDS])(char**) = {cd, pwd, vcs, smonitor, endecrypter, findchange};
 char* EXE_PATH;
 char CURRENT_PATH[100];
 
@@ -18,10 +18,15 @@ void set_exe_path(char* path){
     }
 }
 
+void pwd(char** args) {
+    getcwd(CURRENT_PATH, sizeof(CURRENT_PATH));
+    printf("%s\n", CURRENT_PATH);
+}
+
 void cd(char** args){
     struct stat st;
     if(stat(args[1],&st) != 0) {
-        printf("Directory doesn't exist");
+        printf("Directory doesn't exist\n");
     } else {
         char cwd[100];
         getcwd(cwd, sizeof(cwd));
@@ -131,6 +136,6 @@ void findchange(char** args){
         strcat(text, " ");
         i++;
     }
-    printf("INSERTED: %s\n", text);
-    //system(text);
+    //printf("INSERTED: %s\n", text);
+    system(text);
 }

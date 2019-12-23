@@ -1,9 +1,10 @@
 #include "vcs.h"
 #include "endecryptermain.h"
-#define NUM_OF_CMDS 5
+#define NUM_OF_CMDS 6
 
 void set_exe_path(char* path);
 void cd(char** args);
+void pwd(char** args);
 
 void vcs(char** args);
 void smonitor(char** args);

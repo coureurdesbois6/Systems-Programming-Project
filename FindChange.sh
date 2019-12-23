@@ -15,8 +15,9 @@ if [ $# -ne 3 ]; then
 # -C CHECKS ONE DIRECTORY.
   if [ $1 = "-C" ]; then
  dir1=$3
+ cd $dir1
  DIR=`pwd`
- cd $dir1 | grep --color=always -wHn "$2" *\.* #GETS DIR FROM USER AND TRYING TO FIND THE WORD
+ grep --color=always -wHn "$2" *\.* #GETS DIR FROM USER AND TRYING TO FIND THE WORD
  declare -i x=`cd $dir1 | grep --color=always -wHn "$2" *\.* | wc -l`
   if [ $x -eq 0 ]; then
    echo "'$2' couldn't found in your current directory. "
@@ -36,12 +37,12 @@ if [ $# -ne 3 ]; then
   fi
 
 
-# -D CHECKS DIRECTORIES RECURSIVELY
 elif [ $1 = "-D" ]; then
 dir2=$3
+cd $dir2
 DIR=`pwd`
- cd $dir2 | grep --color=always -rwHn "$2" ${DIR} #GETS DIR FROM USER AND TRYING TO FIND THE WORD
- declare -i x=`cd $dir2 | grep --color=always -rwHn "$2" ${DIR} | wc -l`
+ grep --color=always -rwHn "$2" ${DIR} #GETS DIR FROM USER AND TRYING TO FIND THE WORD
+ declare -i x=`cd $dir2 | grep --color=always -rwHn "$2" $dir2 | wc -l`
   if [ $x -eq 0 ]; then
    echo "'$2' couldn't found in your tree of your current directory."
    else
