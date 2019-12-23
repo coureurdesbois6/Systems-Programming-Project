@@ -61,10 +61,9 @@ int execute(char** args) {
     for(int i = 0; i < NUM_OF_CMDS; i++) {
         if(strcmp(CMDS[i], args[0]) == 0) {
             (*commands[i])(args);
-        } else {
-            printf("%s: command not found\n", args[0]);
+            return 0;
         }
-        
     }
+    printf("%s: command not found\n", args[0]);
     return 0;
 }
