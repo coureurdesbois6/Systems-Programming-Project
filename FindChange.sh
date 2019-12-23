@@ -1,7 +1,5 @@
 #This script is all about changing words or sentences. You don't have to remember which txt file you should change. This script gives you the name and also the chance to change that words or sentences. 
 
-#Written by Efe Ertekin
-
 DIR="$( cd "$( dirname "$0" )" && pwd )"
 echo "Example dir: $DIR"
 echo ""
