@@ -1,5 +1,7 @@
 #include "endecryptermain.h"
 
+const char ENDE_ERR_MSG[] = "usage: endecrypter [file_name] [en]\nendecrypter [file_name] [de]\n";
+
 void endecrypterfunc(char **args)
 {
     int i = 0;
@@ -11,7 +13,7 @@ void endecrypterfunc(char **args)
     //CHECK NUMBER OF ARGUMENTS
     if (i != 3)
     {
-        printf("YOU HAVE TO GIVE 2 ARGUMENTS! FIRST ONE FILE NAME, SECOND ONE OPERATION!\n");
+        printf("%s", ENDE_ERR_MSG);
     }
     else
     {
@@ -130,7 +132,7 @@ void endecrypterfunc(char **args)
                 }
                 if (strcmp(args[2], "de") != 0 && strcmp(args[2], "en") != 0)
                 {
-                    printf("You have to give 'en' for encrypt, 'de' for decrypt as a second argument!\n");
+                    printf("%s", ENDE_ERR_MSG);
                 }
             }
             else

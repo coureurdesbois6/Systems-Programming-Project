@@ -8,7 +8,7 @@ echo ""
 
 #Checks if there are enough arguments.
 if [ $# -ne 3 ]; then
- echo "You should give 3 arguments. First one should be '-C' or '-D'. '-C' is looking your current dir, '-D' is looking your current dir and your current dir's directories recursively. Second argument should be the word that you want to find."
+ echo "usage: findchange [-C/-R] [word] [path]"
  else
 
 
@@ -37,7 +37,7 @@ if [ $# -ne 3 ]; then
   fi
 
 
-elif [ $1 = "-D" ]; then
+elif [ $1 = "-R" ]; then
 dir2=$3
 cd $dir2
 DIR=`pwd`
@@ -61,6 +61,6 @@ DIR=`pwd`
 
 
 else
- echo 'First argument is wrong! You are allowed to use "-C" or "-D".'
+ echo 'usage: findchange [-C/-R] [word] [path]'
 fi
 fi
