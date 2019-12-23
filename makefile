@@ -1,5 +1,5 @@
 main: main.o pshell.o pcmds.o vcs.o endecryptermain.o
-	gcc -o main main.o pshell.o pcmds.o vcs.o endecryptermain.o
+	gcc -o shell main.o pshell.o pcmds.o vcs.o endecryptermain.o
 
 main.o: main.c pshell.h
 	cc -c main.c
