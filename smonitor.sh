@@ -108,7 +108,7 @@ then
 		echo "usage: smonitor [-remove server_ip]"
 		exit 1;
 	else
-		sed -iE "/$2/d" servers.txt
+		sed -i.bak -E "/$2/d" servers.txt
 		#sed -i '/$2/d' servers.txt
 		#sed -i "/\b$2\b/d" servers.txt
 		#sed -i -e "s/$2//g" servers.txt
