@@ -1,13 +1,12 @@
 #This script is all about changing words or sentences. You don't have to remember which txt file you should change. This script gives you the name and also the chance to change that words or sentences. 
 
+#DIR shows where we are and also example for other process
 DIR="$( cd "$( dirname "$0" )" && pwd )"
 echo "Example dir: $DIR"
 echo ""
-if [ $# -eq 0 ]; then
- echo "You need to give 2 arguments to console. First one should be '-C' or '-D'. '-C' is looking your current dir, '-D' is looking your current dir and your current dir's directories recursively. Second argument should be the word that you want to find."
- exit 0
-fi
-if [ $# -eq 1 ]; then
+
+#Checks if there are enough arguments.
+if [ $# -ne 3 ]; then
  echo "You should give 2 arguments. First one should be '-C' or '-D'. '-C' is looking your current dir, '-D' is looking your current dir and your current dir's directories recursively. Second argument should be the word that you want to find."
 fi
 
