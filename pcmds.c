@@ -1,7 +1,4 @@
 #include "pcmds.h"
-#include "vcs.h"
-#include "endecryptermain.h"
-#include <unistd.h>
 
 char* CMDS[] = {"cd", "pwd", "vcs", "smonitor", "endecrypter", "findchange"};
 void (*commands[NUM_OF_CMDS])(char**) = {cd, pwd, vcs, smonitor, endecrypter, findchange};

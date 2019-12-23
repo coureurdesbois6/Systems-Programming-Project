@@ -1,5 +1,7 @@
 #include "vcs.h"
 #include "endecryptermain.h"
+#include <unistd.h>
+
 #define NUM_OF_CMDS 6
 
 void set_exe_path(char* path);

@@ -13,7 +13,7 @@ void endecrypterfunc(char **args)
     //CHECK NUMBER OF ARGUMENTS
     if (i != 3)
     {
-        printf("%s", ENDE_ERR_MSG);
+        printf("YOU HAVE TO GIVE 2 ARGUMENTS! FIRST ONE FILE NAME, SECOND ONE OPERATION!\n");
     }
     else
     {
@@ -132,7 +132,7 @@ void endecrypterfunc(char **args)
                 }
                 if (strcmp(args[2], "de") != 0 && strcmp(args[2], "en") != 0)
                 {
-                    printf("%s", ENDE_ERR_MSG);
+                    printf("You have to give 'en' for encrypt, 'de' for decrypt as a second argument!\n");
                 }
             }
             else
