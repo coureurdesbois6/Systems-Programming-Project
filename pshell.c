@@ -3,9 +3,9 @@
 void main_loop() {
     char *line;
     char **args;
-    int status = 1;
+    int status = 0; //0 indicating no error
 
-    while (status) {
+    while (!status) {
         printf("> ");
         line = read_line(); //Add line to history after this line
         args = split_line(line);
@@ -61,9 +61,8 @@ int execute(char** args) {
     for(int i = 0; i < NUM_OF_CMDS; i++) {
         if(strcmp(CMDS[i], args[0]) == 0) {
             (*commands[i])(args);
-            return 0;
         }
     }
     printf("%s: command not found\n", args[0]);
-    return 1;
+    return 0;
 }
