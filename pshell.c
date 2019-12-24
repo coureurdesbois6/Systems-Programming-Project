@@ -9,6 +9,9 @@ void main_loop() {
     while (!status) {
         printf("> ");
         line = read_line(); //TODO: Add line to `history` after this line
+        if (strcmp(line, " ") == 0 || strlen(line) == 0) {
+            continue;
+        }
         args = split_line(line);
         status = execute(args);
         free(line); //free both line and args after executed proccess is finished
