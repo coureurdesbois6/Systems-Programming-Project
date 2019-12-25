@@ -78,7 +78,7 @@ read_servers
 
 if [ $# -eq 0 ]
   then
-    echo "usage: smonitor [-start] [-add server_ip] [-remove server_ip] [-removeall]"
+    echo "usage: smonitor [-start] [-add server_ip] [-remove server_ip] [-removeall] [-show]"
     exit 1;
 fi
 
