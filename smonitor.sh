@@ -1,3 +1,5 @@
+#!/bin/sh
+
 start_monitoring()
 {
 	#stty -echo #disable stdin
