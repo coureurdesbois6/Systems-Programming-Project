@@ -33,13 +33,13 @@ start_monitoring()
 	#printf '\33c\e[3J'
 	printf "\033[${#servers[@]}A"
 	done
-	
 }
 
 display_server_status()
 {
 	#out=`ping -W 1000 -c 2 192.168.1.43 | grep -oE '([0-9]{1,3}\.?){4,}' | head -1`
-	out=`ping -W 500 -c 1 $1 | grep -oE 'time=[0-9]*\.[0-9]*' | head -1`
+	out=`ping -W 500 -c 1 $1 | grep -o 'time=[0-9]*\.[0-9]*' | head -1`
+	#out=`ping -W 500 -c 1 $1 | grep -oE 'time=[0-9]*\.[0-9]*' | head -1`
 	##echo "                                                 "
 	##echo -n -e "\r\033[A\033[0K"
 	#echo -ne "\r\033[A\033[0K$@"
@@ -117,5 +117,3 @@ elif [[ $1 == -removeall ]]
 then
 	remove_all
 fi
-
-
