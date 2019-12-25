@@ -1,5 +1,8 @@
 #!/bin/bash
 
+export LC_CTYPE=C 
+export LANG=C
+
 start_monitoring()
 {
 	#stty -echo #disable stdin
